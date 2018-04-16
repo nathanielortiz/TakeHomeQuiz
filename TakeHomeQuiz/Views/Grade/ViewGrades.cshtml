@@ -1,0 +1,51 @@
+﻿@model IEnumerable<TakeHomeQuiz.Models.GradesModel>
+
+@{
+    ViewBag.Title = "ViewGrades";
+}
+
+<h2>List of Grades</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+      
+  
+     
+        <th>
+            Courses
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Units)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Grade)
+        </th>
+   
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+   
+     
+        <td>
+            @Html.DisplayFor(modelItem => item.Code)-@Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Units)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Grade)
+        </td>
+      
+        <td>
+
+            @Html.ActionLink("Delete", "Delete", new {  id=item.GradeID })
+        </td>
+    </tr>
+}
+
+</table>

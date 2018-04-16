@@ -276,10 +276,11 @@
     <Content Include="Service References\Application Insights\ConnectedService.json" />
     <Content Include="Views\Course\AddCourse.cshtml" />
     <Content Include="Views\Course\ViewCourses.cshtml" />
+    <Content Include="Views\Grade\AddGrades.cshtml" />
+    <Content Include="Views\Grade\ViewGrades.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Grade\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

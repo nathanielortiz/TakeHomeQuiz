@@ -1,4 +1,3 @@
-c:\users\asus\documents\visual studio 2015\Projects\TakeHomeQuiz\TakeHomeQuiz\obj\Debug\TakeHomeQuiz.csprojResolveAssemblyReference.cache
 c:\users\asus\documents\visual studio 2015\Projects\TakeHomeQuiz\TakeHomeQuiz\bin\ApplicationInsights.config
 c:\users\asus\documents\visual studio 2015\Projects\TakeHomeQuiz\TakeHomeQuiz\bin\roslyn\csc.exe
 c:\users\asus\documents\visual studio 2015\Projects\TakeHomeQuiz\TakeHomeQuiz\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll

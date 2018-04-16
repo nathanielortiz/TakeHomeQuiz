@@ -20,7 +20,12 @@ namespace TakeHomeQuiz.Models
         [Required(ErrorMessage ="Select Course")]
         public int CourseID { get; set; }
         public List<CourseModel> Courses { get; set; }
-        public string Course { get; set; }
+        [Display(Name = "Code")]
+        public string Code { get; set; }
+        [Display(Name = "Units")]
+        public string Units { get; set; }
+        [Display(Name = "Name")]
+        public string Name { get; set; }
 
         [Display(Name ="Grades")]
         [Required(ErrorMessage = "Required")]
