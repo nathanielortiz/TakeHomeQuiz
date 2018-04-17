@@ -202,10 +202,12 @@
     <Compile Include="Controllers\GradeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\TotalCountController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\CourseAndGradeViewModel.cs" />
     <Compile Include="Models\CourseModel.cs" />
     <Compile Include="Models\GradesModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -278,6 +280,7 @@
     <Content Include="Views\Course\ViewCourses.cshtml" />
     <Content Include="Views\Grade\AddGrades.cshtml" />
     <Content Include="Views\Grade\ViewGrades.cshtml" />
+    <Content Include="Views\TotalCount\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -79,3 +79,4 @@ c:\users\asus\documents\visual studio 2015\Projects\TakeHomeQuiz\TakeHomeQuiz\bi
 c:\users\asus\documents\visual studio 2015\Projects\TakeHomeQuiz\TakeHomeQuiz\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 c:\users\asus\documents\visual studio 2015\Projects\TakeHomeQuiz\TakeHomeQuiz\obj\Debug\TakeHomeQuiz.dll
 c:\users\asus\documents\visual studio 2015\Projects\TakeHomeQuiz\TakeHomeQuiz\obj\Debug\TakeHomeQuiz.pdb
+C:\Users\ASUS\Documents\Visual Studio 2015\Projects\TakeHomeQuiz\TakeHomeQuiz\obj\Debug\TakeHomeQuiz.csprojResolveAssemblyReference.cache

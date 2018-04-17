@@ -1,5 +1,6 @@
 ﻿@model IEnumerable<TakeHomeQuiz.Models.GradesModel>
 
+
 @{
     ViewBag.Title = "ViewGrades";
 }
@@ -7,45 +8,76 @@
 <h2>List of Grades</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "AddGrades")
 </p>
-<table class="table">
-    <tr>
-      
-  
-     
-        <th>
-            Courses
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Units)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Grade)
-        </th>
-   
-        <th></th>
-    </tr>
+<div class="col-lg-9">
+    <table class="table">
+        <tr>
 
-@foreach (var item in Model) {
-    <tr>
-   
-     
-        <td>
-            @Html.DisplayFor(modelItem => item.Code)-@Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Units)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Grade)
-        </td>
-      
-        <td>
+            <th>
+                Courses
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Units)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Grade)
+            </th>
 
-            @Html.ActionLink("Delete", "Delete", new {  id=item.GradeID })
-        </td>
-    </tr>
-}
+            <th></th>
+        </tr>
 
-</table>
+        @foreach (var item in Model)
+        {
+            <tr>
+
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Code)-@Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Units)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Grade)
+                </td>
+
+                <td>
+
+                    @Html.ActionLink("Delete", "DeleteGrades", new { id = item.GradeID })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+
+<div class="col-lg-3">
+    <div class="well">
+ 
+       <table class="table">
+           <tbody>
+               <tr>
+                   <td>
+                       <strong>Total Subject</strong>
+                   </td>
+                   <td align="right">@Model.Count()</td>
+               </tr>
+               <tr>
+                   <td>
+                       <strong>Total Units</strong>
+
+                   </td>
+                   <td align="right">@ViewBag.TotalUnits</td>
+               </tr>
+               <tr>
+                   <td>
+                       <strong>GPA</strong>
+                   </td>
+                   <td align="right">@ViewBag.TotalGPA</td>
+
+               </tr>
+           </tbody>
+       </table>
+    </div>
+</div>

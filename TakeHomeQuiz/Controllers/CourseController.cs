@@ -46,23 +46,46 @@ namespace TakeHomeQuiz.Controllers
             CourseModel coursemodel = new CourseModel();
             return View(coursemodel);
         }
+        bool IsExisting(string CourseCode)
+        {
+            using(SqlConnection con = new SqlConnection(Dekomori.GetConnection()))
+            {
+                con.Open();
+                string query = "SELECT Code FROM Courses WHERE Code=@C";
+                using (SqlCommand com = new SqlCommand(query, con))
+                {
+                    com.Parameters.AddWithValue("@C", CourseCode);
+                    return com.ExecuteScalar() == null ? false : true;
+                }
+            }
+        }
         [HttpPost]
         public ActionResult AddCourse(CourseModel rec)
         {
-            using (SqlConnection kek = new SqlConnection(Dekomori.GetConnection()))
+            if (IsExisting(rec.Code))
             {
-                kek.Open();
-                string lel = @"INSERT INTO Courses VALUES (@Code,@Name,@Units,@DateAdded)";
-                using (SqlCommand ehe = new SqlCommand(lel, kek))
-                {
-                    ehe.Parameters.AddWithValue("@Code", rec.Code);
-                    ehe.Parameters.AddWithValue("@Name", rec.Name);
-                    ehe.Parameters.AddWithValue("@Units", rec.Units);
-                    ehe.Parameters.AddWithValue("@DateAdded", DateTime.Now);
-                    ehe.ExecuteNonQuery();
-                    return RedirectToAction("ViewCourses");
-                }
+                ViewBag.Error = "<div class='alert alert-danger'> Course Already existed! </div>";
+                return View();
             }
+            else
+            {
+                using (SqlConnection kek = new SqlConnection(Dekomori.GetConnection()))
+                {
+                    kek.Open();
+                    string lel = @"INSERT INTO Courses VALUES (@Code,@Name,@Units,@DateAdded)";
+                    using (SqlCommand ehe = new SqlCommand(lel, kek))
+                    {
+                        ehe.Parameters.AddWithValue("@Code", rec.Code);
+                        ehe.Parameters.AddWithValue("@Name", rec.Name);
+                        ehe.Parameters.AddWithValue("@Units", rec.Units);
+                        ehe.Parameters.AddWithValue("@DateAdded", DateTime.Now);
+                        ehe.ExecuteNonQuery();
+                        return RedirectToAction("ViewCourses");
+                    }
+                }
+
+            }
+           
         }
 
         public ActionResult DeleteCourse(int? id)

@@ -10,6 +10,23 @@ namespace TakeHomeQuiz.Controllers
 {
     public class GradeController : Controller
     {
+        //existing subject or not
+       bool IsExisting(int CourseID)
+        {
+            using(SqlConnection con = new SqlConnection(Dekomori.GetConnection()))
+            {
+                con.Open();
+                //string query = "SELECT c.Code, g.CourseID FROM Grades as g INNER JOIN Courses c on c.CourseID =g.CourseID WHERE g.CourseID = @CID AND c.Code =@CD";
+                string query = "SELECT CourseID FROM Grades WHERE CourseID=@CID";
+                using (SqlCommand com = new SqlCommand(query, con))
+                {
+                    com.Parameters.AddWithValue("@CID", CourseID);
+                    //com.Parameters.AddWithValue("@CD", Code);
+                    return com.ExecuteScalar() == null ? false : true;
+                }
+
+            }
+        }
         public List<CourseModel> GetCourses()
         {
             var list = new List<CourseModel>();
@@ -35,6 +52,7 @@ namespace TakeHomeQuiz.Controllers
             }
             return list;
         }
+     
         public ActionResult AddGrades()
         {
             GradesModel rec = new GradesModel();
@@ -44,39 +62,70 @@ namespace TakeHomeQuiz.Controllers
         [HttpPost]
         public ActionResult AddGrades(GradesModel rec)
         {
+            //if (IsExisting(rec.CourseID))
+            //{
+            //    ViewBag.Error = "<div class='alert alert-danger'> Subject Already added </div>";
+            //    return View();
+            //}
+            //else
+            //{
+                using (SqlConnection con = new SqlConnection(Dekomori.GetConnection()))
+                {
+                    con.Open();
+                    string query = @"INSERT INTO Grades VALUES
+                (@SN,@CourseID,@Grade,@Total)";
+                    using (SqlCommand com = new SqlCommand(query, con))
+                    {
+                        com.Parameters.AddWithValue("@SN", rec.StudentName);
+                        com.Parameters.AddWithValue("@CourseID", rec.CourseID);
+                        com.Parameters.AddWithValue("@Grade", rec.Grade);
+                        com.Parameters.AddWithValue("@Total", DBNull.Value);
+                        com.ExecuteNonQuery();
+                    }
+                }
+                return RedirectToAction("ViewGrades");
+            //}
+        }
+
+
+    
+        double GetTotalUnits()
+        {
             using(SqlConnection con = new SqlConnection(Dekomori.GetConnection()))
             {
                 con.Open();
-                string query = @"INSERT INTO Grades VALUES
-                (@SN,@CourseID,@Grade,@Total)";
-                using (SqlCommand com = new SqlCommand(query, con))
+                string query = @"Select SUM(c.Units) FROM courses c Inner JOIN grades g ON c.CourseID = g.CourseID";
+                using(SqlCommand com = new SqlCommand(query, con))
                 {
-                    com.Parameters.AddWithValue("@SN", rec.StudentName);
-                    com.Parameters.AddWithValue("@CourseID", rec.CourseID);
-                    com.Parameters.AddWithValue("@Grade", rec.Grade);
-                    com.Parameters.AddWithValue("@Total", DBNull.Value);
-                    com.ExecuteNonQuery();
+                   
+                    return Convert.ToDouble((decimal)com.ExecuteScalar());
                 }
             }
-            return RedirectToAction("ViewGrades");
         }
+        double GetTotalScore()
+        {
+            using (SqlConnection con = new SqlConnection(Dekomori.GetConnection()))
+            {
+                con.Open();
+                string query = @"SELECT SUM(g.Grade * c.Units) From Grades g Inner Join Courses c on c.CourseID = g.CourseID";
+                using (SqlCommand com = new SqlCommand(query, con))
+                {
 
-        //double GetTotalGrades()
-        //{
-        //    using (SqlConnection con = new SqlConnection(Dekomori.GetConnection()))
-        //    {
-        //        con.Open();
-        //        string query = @"SELECT SUM("
-        //    }
-        //}
+
+                    return Convert.ToDouble((decimal)com.ExecuteScalar());
+                }
+            }
+        }
         // GET: Grade
         public ActionResult ViewGrades()
         {
+ 
             var list = new List<GradesModel>();
+            
             using(SqlConnection con = new SqlConnection(Dekomori.GetConnection()))
             {
                 con.Open();
-                string query = @"SELECT g.GradeID,c.Code,c.Name,g.Grade,c.Units FROM Grades AS g INNER JOIN Courses c ON g.CourseID = c.CourseID";
+                string query = @"SELECT g.CourseID, g.GradeID,c.Code,c.Name,g.Grade,c.Units FROM Grades AS g INNER JOIN Courses c ON g.CourseID = c.CourseID";
                 
                 using(SqlCommand com = new SqlCommand(query, con))
                 {
@@ -86,7 +135,7 @@ namespace TakeHomeQuiz.Controllers
                         {
                             list.Add(new GradesModel
                             {
-                               
+                                CourseID = int.Parse(dr["CourseID"].ToString()),
                                 GradeID = int.Parse(dr["GradeID"].ToString()),
                                 Code = dr["Code"].ToString(),
                                 Name = dr["Name"].ToString(),
@@ -96,6 +145,11 @@ namespace TakeHomeQuiz.Controllers
 
                             });
                         }
+                        //ViewBag.TotalGrades = GetTotalGrades().ToString();
+                        ViewBag.TotalUnits = GetTotalUnits().ToString("#.0");
+                        ViewBag.TotalGPA =  GetTotalScore() /GetTotalUnits();
+
+
                     }
                 }
             }
@@ -111,7 +165,7 @@ namespace TakeHomeQuiz.Controllers
                 string del = @"DELETE FROM Grades WHERE GradeID=@GD";
                 using(SqlCommand com = new SqlCommand(del, con))
                 {
-                    com.Parameters.AddWithValue("@CID", id);
+                    com.Parameters.AddWithValue("@GD", id);
                     com.ExecuteNonQuery();
                 }
                 return RedirectToAction("ViewGrades");

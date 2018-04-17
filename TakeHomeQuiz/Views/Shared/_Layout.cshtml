@@ -27,13 +27,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("ISPROG3TakeHOMEQUIZ", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("ISPROG3TakeHOMEQUIZ", "Index", "TotalCount", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Courses", "ViewCourses", "Home")</li>
-                    <li>@Html.ActionLink("Grades", "ViewGrades", "Home")</li>
+                    <li>@Html.ActionLink("Home", "Index", "TotalCount")</li>
+                    <li>@Html.ActionLink("Courses", "ViewCourses", "Course")</li>
+                    <li>@Html.ActionLink("Grades", "ViewGrades", "Grade")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

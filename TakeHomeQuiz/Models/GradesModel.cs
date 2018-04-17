@@ -26,7 +26,7 @@ namespace TakeHomeQuiz.Models
         public string Units { get; set; }
         [Display(Name = "Name")]
         public string Name { get; set; }
-
+  
         [Display(Name ="Grades")]
         [Required(ErrorMessage = "Required")]
         [Range(0.00, 4.0, ErrorMessage = "Error: Units must be between 1 and 4")]

@@ -1,0 +1,25 @@
+﻿@model IEnumerable<TakeHomeQuiz.Models.CourseAndGradeViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<div>
+    <h4>Home Page</h4>
+    <hr />
+    <dl class="dl-horizontal">
+    </dl>
+</div>
+<div class="col-lg-4">
+    <div class="thumbnail">
+        <div class="caption">
+           
+            <a href="@Url.Action("ViewCourses","Course")"> View Course
+                </a>
+            
+            <a href="@Url.Action("ViewGrades","Grades")">View Grades</a>
+        </div>
+    </div>
+</div>
